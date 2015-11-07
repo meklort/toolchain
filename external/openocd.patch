@@ -1,0 +1,31 @@
+*** a/configure	2015-05-17 15:09:56.000000000 -0600
+--- b/configure	2015-11-07 13:38:35.000000000 -0700
+***************
+*** 14,19 ****
+--- 14,23 ----
+  ## M4sh Initialization. ##
+  ## -------------------- ##
+  
++ LDFLAGS="-L"`pwd`"/../../../libusb-prefix/src/libusb-build/libusb/.libs/"
++ LIBUSB1_CFLAGS="-I"`pwd`"/../../../libusb-prefix/src/libusb/libusb/"
++ LIBUSB1_LIBS="-L"`pwd`"/../../../libusb-prefix/src/libusb-build/libusb/.libs/ -lusb-1.0"
++ 
+  # Be more Bourne compatible
+  DUALCASE=1; export DUALCASE # for MKS sh
+  if test -n "${ZSH_VERSION+set}" && (emulate sh) >/dev/null 2>&1; then :
+*** a/doc/openocd.texi	2015-05-17 15:04:07.000000000 -0600
+--- b/doc/openocd.texi	2015-11-07 13:56:36.000000000 -0700
+***************
+*** 8460,8470 ****
+  @item ThreadX symbols
+  _tx_thread_current_ptr, _tx_thread_created_ptr, _tx_thread_created_count.
+  @item FreeRTOS symbols
+- @raggedright
+- pxCurrentTCB, pxReadyTasksLists, xDelayedTaskList1, xDelayedTaskList2,
+- pxDelayedTaskList, pxOverflowDelayedTaskList, xPendingReadyList,
+- uxCurrentNumberOfTasks, uxTopUsedPriority.
+- @end raggedright
+  @item linux symbols
+  init_task.
+  @item ChibiOS symbols
+--- 8460,8465 ----
