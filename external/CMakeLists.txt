@@ -6,7 +6,7 @@ ExternalProject_Add (libusb
 #	GIT_TAG		v1.0.20
 
 	CONFIGURE_COMMAND <SOURCE_DIR>/configure --disable-static --prefix=${CMAKE_INSTALL_PREFIX}
-	INSTALL_COMMAND make DESTDIR=${CMAKE_BINARY_DIR} install
+	INSTALL_COMMAND make DESTDIR=<INSTALL_DIR> install
 )
 message("BINDIR is ${CMAKE_BINARY_DIR}")
 message("INSTALL is ${CMAKE_INSTALL_PREFIX}")
@@ -28,15 +28,21 @@ ExternalProject_Add (openocd
 
 	PATCH_COMMAND		patch -p1 -i ${CMAKE_CURRENT_SOURCE_DIR}/openocd.patch
 	CONFIGURE_COMMAND	<SOURCE_DIR>/configure --prefix=${CMAKE_INSTALL_PREFIX} --enable-ftdi --enable-stlink --enable-maintainer-mode --srcdir=<SOURCE_DIR>
-	INSTALL_COMMAND 	make DESTDIR=${CMAKE_BINARY_DIR} install
-
+	INSTALL_COMMAND 	make DESTDIR=<INSTALL_DIR> install
 )
 
-install(DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_PREFIX}
-        DESTINATION ${CMAKE_INSTALL_PREFIX}
-        PATTERN "bin/openocd" EXCLUDE
+ExternalProject_Get_Property(libusb INSTALL_DIR)
+install(DIRECTORY ${INSTALL_DIR}/${CMAKE_INSTALL_PREFIX}/
+        DESTINATION .
         )
 
-install(PROGRAMS ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_PREFIX}/bin/openocd
-	DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/
-	)
+ExternalProject_Get_Property(openocd INSTALL_DIR)
+install(DIRECTORY ${INSTALL_DIR}/${CMAKE_INSTALL_PREFIX}/
+        DESTINATION .
+	PATTERN "bin/openocd" EXCLUDE
+        )
+
+install(PROGRAMS ${INSTALL_DIR}/${CMAKE_INSTALL_PREFIX}/bin/openocd
+        DESTINATION bin
+        )
+
