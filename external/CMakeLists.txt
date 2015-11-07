@@ -1,8 +1,9 @@
 include (ExternalProject)
 
 ExternalProject_Add (libusb
-	GIT_REPOSITORY	https://github.com/libusb/libusb.git
-	GIT_TAG		v1.0.20
+	URL		http://iweb.dl.sourceforge.net/project/libusb/libusb-1.0/libusb-1.0.20/libusb-1.0.20.tar.bz2
+#	GIT_REPOSITORY	https://github.com/libusb/libusb.git
+#	GIT_TAG		v1.0.20
 
 	CONFIGURE_COMMAND <SOURCE_DIR>/configure --disable-static --prefix=${CMAKE_INSTALL_PREFIX}
 	INSTALL_COMMAND make DESTDIR=${CMAKE_BINARY_DIR} install
@@ -10,12 +11,12 @@ ExternalProject_Add (libusb
 message("BINDIR is ${CMAKE_BINARY_DIR}")
 message("INSTALL is ${CMAKE_INSTALL_PREFIX}")
 
-ExternalProject_Add_Step(libusb bootstrap
-	COMMAND			<SOURCE_DIR>/bootstrap.sh
-	DEPENDERS		configure	
-	DEPENDEES		download
-	WORKING_DIRECTORY	<SOURCE_DIR>
-)
+#ExternalProject_Add_Step(libusb bootstrap
+#	COMMAND			<SOURCE_DIR>/bootstrap.sh
+#	DEPENDERS		configure	
+#	DEPENDEES		download
+#	WORKING_DIRECTORY	<SOURCE_DIR>
+#)
 
 
 
@@ -31,3 +32,11 @@ ExternalProject_Add (openocd
 
 )
 
+install(DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_PREFIX}
+        DESTINATION ${CMAKE_INSTALL_PREFIX}
+        PATTERN "bin/openocd" EXCLUDE
+        )
+
+install(PROGRAMS ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_PREFIX}/bin/openocd
+	DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/
+	)
