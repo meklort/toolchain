@@ -29,6 +29,14 @@ ExternalProject_Add (openocd
 	INSTALL_COMMAND 	make DESTDIR=<INSTALL_DIR> install
 )
 
+ExternalProject_Add_Step(openocd remove-к1879xб1я.cfg
+	COMMAND			rm <INSTALL_DIR>/${CMAKE_INSTALL_PREFIX}/share/openocd/scripts/target/к1879xб1я.cfg
+	DEPENDERS		
+	DEPENDEES		install
+	WORKING_DIRECTORY	<INSTALL_DIR>
+)
+
+
 ExternalProject_Get_Property(libusb INSTALL_DIR)
 install(DIRECTORY ${INSTALL_DIR}/${CMAKE_INSTALL_PREFIX}/
         DESTINATION .
