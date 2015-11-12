@@ -16,7 +16,11 @@ ExternalProject_Add (llvm
 #	GIT_REPOSITORY	https://github.com/libusb/libusb.git
 #	GIT_TAG		v1.0.20
 	
-	CMAKE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>/${CMAKE_INSTALL_PREFIX} -DLLVM_TARGET_ARCH:STRING=arm-unknown-linux -DCMAKE_BUILD_TYPE:STRING=Release
+	CONFIGURE_COMMAND	<SOURCE_DIR>/configure --prefix=${CMAKE_INSTALL_PREFIX} --target=unknown-unknown-linux --enable-targets=all -disable-backtraces --disable-keep-symbols -disable-debug-symbols --disable-assertions --enable-optimized
+	BUILD_COMMAND		make -j8
+	INSTALL_COMMAND		make DESTDIR=<INSTALL_DIR> install
+
+#	CMAKE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>/${CMAKE_INSTALL_PREFIX} -DLLVM_TARGET_ARCH:STRING=arm-unknown-linux -DCMAKE_BUILD_TYPE:STRING=Release
 )
 
 
