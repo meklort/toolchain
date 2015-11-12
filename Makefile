@@ -1,9 +1,9 @@
-all: build/Makefile
-	cd build && make
+all: build/CMakeCache.txt
+	cd build && cmake --build .
 
 
-install: build/Makefile
-	cd build && make install
+install: build/CMakeCache.txt
+	cd build && cmake --build . --target install
 
 cpack:
 	cd build && cpack
@@ -11,7 +11,8 @@ cpack:
 clean:
 	rm -rf build
 
-build/Makefile:
+build/CMakeCache.txt:
 	mkdir -p build
-	cd build && cmake ..
+	@#cd build && cmake -G Ninja .. -DCMAKE_VERBOSE_MAKEFILE=Yes
+	cd build && cmake .. -DCMAKE_VERBOSE_MAKEFILE=Yes
 

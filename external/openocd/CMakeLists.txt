@@ -40,15 +40,13 @@ ExternalProject_Add_Step(openocd remove-к1879xб1я.cfg
 ExternalProject_Get_Property(libusb INSTALL_DIR)
 install(DIRECTORY ${INSTALL_DIR}/${CMAKE_INSTALL_PREFIX}/
         DESTINATION .
+	USE_SOURCE_PERMISSIONS
+	PATTERN "include/" EXCLUDE
+	PATTERN "include/*" EXCLUDE
         )
 
 ExternalProject_Get_Property(openocd INSTALL_DIR)
 install(DIRECTORY ${INSTALL_DIR}/${CMAKE_INSTALL_PREFIX}/
         DESTINATION .
-	PATTERN "bin/openocd" EXCLUDE
+	USE_SOURCE_PERMISSIONS
         )
-
-install(PROGRAMS ${INSTALL_DIR}/${CMAKE_INSTALL_PREFIX}/bin/openocd
-        DESTINATION bin
-        )
-
