@@ -37,5 +37,6 @@ ExternalProject_Get_Property(llvm INSTALL_DIR)
 install(DIRECTORY ${INSTALL_DIR}/${CMAKE_INSTALL_PREFIX}/
         DESTINATION .
 	USE_SOURCE_PERMISSIONS
+	PATTERN	"lib/*.a" EXCLUDE
         )
 
