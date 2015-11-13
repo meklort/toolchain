@@ -49,4 +49,5 @@ ExternalProject_Get_Property(openocd INSTALL_DIR)
 install(DIRECTORY ${INSTALL_DIR}/${CMAKE_INSTALL_PREFIX}/
         DESTINATION .
 	USE_SOURCE_PERMISSIONS
+	PATTERN "scripts/target/1986ве1т.cfg" EXCLUDE
         )
