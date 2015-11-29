@@ -4,5 +4,6 @@ add_subdirectory (openocd)
 add_subdirectory (cmake)
 add_subdirectory (binutils)
 add_subdirectory (llvm)
+add_subdirectory (gdb)
 
 
