@@ -1,0 +1,53 @@
+diff -crB a/Source/cmMakefile.cxx b/Source/cmMakefile.cxx
+*** a/Source/cmMakefile.cxx	2015-11-29 17:07:11.397410427 -0700
+--- b/Source/cmMakefile.cxx	2015-11-29 18:31:33.442010336 -0700
+***************
+*** 65,81 ****
+    // Set up a list of source and header extensions
+    // these are used to find files when the extension
+    // is not given
+-   // The "c" extension MUST precede the "C" extension.
+-   this->SourceFileExtensions.push_back( "c" );
+-   this->SourceFileExtensions.push_back( "C" );
+  
+!   this->SourceFileExtensions.push_back( "c++" );
+!   this->SourceFileExtensions.push_back( "cc" );
+!   this->SourceFileExtensions.push_back( "cpp" );
+!   this->SourceFileExtensions.push_back( "cxx" );
+!   this->SourceFileExtensions.push_back( "m" );
+!   this->SourceFileExtensions.push_back( "M" );
+!   this->SourceFileExtensions.push_back( "mm" );
+  
+    this->HeaderFileExtensions.push_back( "h" );
+    this->HeaderFileExtensions.push_back( "hh" );
+--- 65,94 ----
+    // Set up a list of source and header extensions
+    // these are used to find files when the extension
+    // is not given
+  
+!   //const char* value = this->GetDefinition("CMAKE_SEARCH_SOURCE_EXTENSIONS");
+!   //if(value && *value)
+!   //{
+!   //  cmSystemTools::ExpandListArgument(value, this->SourceFileExtensions, true);
+!   //}
+!   //else
+!   {
+!     // The "c" extension MUST precede the "C" extension.
+!     this->SourceFileExtensions.push_back( "c" );
+!     this->SourceFileExtensions.push_back( "C" );
+! 
+!     this->SourceFileExtensions.push_back( "c++" );
+!     this->SourceFileExtensions.push_back( "cc" );
+!     this->SourceFileExtensions.push_back( "cpp" );
+!     this->SourceFileExtensions.push_back( "cxx" );
+!     this->SourceFileExtensions.push_back( "m" );
+!     this->SourceFileExtensions.push_back( "M" );
+!     this->SourceFileExtensions.push_back( "mm" );
+! 
+!     this->SourceFileExtensions.push_back( "asm" );
+!     this->SourceFileExtensions.push_back( "s" );
+!     this->SourceFileExtensions.push_back( "S" );
+!   }
+  
+    this->HeaderFileExtensions.push_back( "h" );
+    this->HeaderFileExtensions.push_back( "hh" );
