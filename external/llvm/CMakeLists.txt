@@ -3,8 +3,10 @@ include (ExternalProject)
 
 ExternalProject_Add (download-clang
 	URL		http://llvm.org/releases/3.7.0/cfe-3.7.0.src.tar.xz
+	#SVN_REPOSITORY	http://llvm.org/svn/llvm-project/cfe/trunk
 
 	CONFIGURE_COMMAND 	""
+	#PATCH_COMMAND		patch -p1 -i ${CMAKE_CURRENT_SOURCE_DIR}/D14121.diff
 	BUILD_COMMAND	""
 	INSTALL_COMMAND	""
 )
@@ -13,9 +15,8 @@ ExternalProject_Add (download-clang
 ExternalProject_Add (llvm
 	DEPENDS		download-clang
 	URL		http://llvm.org/releases/3.7.0/llvm-3.7.0.src.tar.xz
-#	GIT_REPOSITORY	https://github.com/libusb/libusb.git
-#	GIT_TAG		v1.0.20
-	
+	#SVN_REPOSITORY	http://llvm.org/svn/llvm-project/llvm/trunk
+
 	CONFIGURE_COMMAND	<SOURCE_DIR>/configure --prefix=${CMAKE_INSTALL_PREFIX} --target=unknown-unknown-linux --enable-targets=all -disable-backtraces --disable-keep-symbols -disable-debug-symbols --disable-assertions --enable-optimized
 	BUILD_COMMAND		make -j8
 	INSTALL_COMMAND		make DESTDIR=<INSTALL_DIR> install
