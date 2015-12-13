@@ -13,7 +13,7 @@ clean:
 
 build/CMakeCache.txt: Makefile
 	@mkdir -p build
-	@cd build && cmake -G Ninja ..
+	@cd build && cmake ..
 	@# -DCMAKE_VERBOSE_MAKEFILE=Yes
 	@#cd build && cmake .. -DCMAKE_VERBOSE_MAKEFILE=Yes
 
