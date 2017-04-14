@@ -11,6 +11,7 @@ addons:
   apt:
     packages:
       - libudev-dev
+      - texinfo
 
 
 script:
