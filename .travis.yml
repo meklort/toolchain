@@ -7,6 +7,12 @@ matrix:
       osx_image: xcode6.4
     - os: linux
 
+addons:
+  apt:
+    packages:
+      - libudev-dev
+
 
 script:
   make
+  make cpack
