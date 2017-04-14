@@ -3,8 +3,8 @@ language: c++
 
 matrix:
   include:
-    - os: osx
-      osx_image: xcode6.4
+    #- os: osx
+    #  osx_image: xcode6.4
     - os: linux
 
 addons:
