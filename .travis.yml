@@ -10,6 +10,7 @@ matrix:
 addons:
   apt:
     packages:
+      - cmake
       - libudev-dev
       - texinfo
 
