@@ -1,0 +1,69 @@
+diff -crB binutils/include/opcode/cr16.h binutils-2.25/include/opcode/cr16.h
+*** binutils/include/opcode/cr16.h	2017-04-15 07:48:12.000000000 -0600
+--- binutils-2.25/include/opcode/cr16.h	2014-10-14 01:32:04.000000000 -0600
+***************
+*** 404,409 ****
+--- 404,412 ----
+  /* Table of instructions with no operands.  */
+  extern const char * cr16_no_op_insn[];
+  
++ /* Current instruction we're assembling.  */
++ extern const inst *instruction;
++ 
+  /* A macro for representing the instruction "constant" opcode, that is,
+     the FIXED part of the instruction. The "constant" opcode is represented
+     as a 32-bit unsigned long, where OPC is expanded (by a left SHIFT)
+diff -crB binutils/opcodes/cr16-dis.c binutils-2.25/opcodes/cr16-dis.c
+*** binutils/opcodes/cr16-dis.c	2017-04-15 07:48:41.000000000 -0600
+--- binutils-2.25/opcodes/cr16-dis.c	2014-10-14 01:32:04.000000000 -0600
+***************
+*** 78,95 ****
+  REG_ARG_TYPE;
+  
+  /* Current opcode table entry we're disassembling.  */
+! static const inst *instruction;
+  /* Current instruction we're disassembling.  */
+  ins cr16_currInsn;
+  /* The current instruction is read into 3 consecutive words.  */
+  wordU cr16_words[3];
+  /* Contains all words in appropriate order.  */
+  ULONGLONG cr16_allWords;
+  /* Nonzero means a IMM4 instruction.  */
+  int imm4flag;
+  /* Nonzero means the instruction's original size is
+     incremented (escape sequence is used).  */
+! static int size_changed;
+  
+  
+  /* Print the constant expression length.  */
+--- 78,97 ----
+  REG_ARG_TYPE;
+  
+  /* Current opcode table entry we're disassembling.  */
+! const inst *instruction;
+  /* Current instruction we're disassembling.  */
+  ins cr16_currInsn;
+  /* The current instruction is read into 3 consecutive words.  */
+  wordU cr16_words[3];
+  /* Contains all words in appropriate order.  */
+  ULONGLONG cr16_allWords;
++ /* Holds the current processed argument number.  */
++ int processing_argument_number;
+  /* Nonzero means a IMM4 instruction.  */
+  int imm4flag;
+  /* Nonzero means the instruction's original size is
+     incremented (escape sequence is used).  */
+! int size_changed;
+  
+  
+  /* Print the constant expression length.  */
+***************
+*** 719,724 ****
+--- 721,727 ----
+  
+    for (i = 0; i < currentInsn->nargs; i++)
+      {
++       processing_argument_number = i;
+  
+        /* For "bal (ra), disp17" instruction only.  */
+        if ((IS_INSN_MNEMONIC ("bal")) && (i == 0) && instruction->size == 2)
