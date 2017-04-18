@@ -11,7 +11,7 @@ addons:
   apt:
     packages:
       - cmake
-      - unxz
+      - xz
       - tar
       - libudev-dev
       - texinfo
